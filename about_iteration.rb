@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/edgecase')
+require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-class AboutIteration < EdgeCase::Koan
+class AboutIteration < Neo::Koan
 
   # -- An Aside ------------------------------------------------------
   # Ruby 1.8 stores names as strings. Ruby 1.9 stores names as
@@ -14,7 +14,7 @@ class AboutIteration < EdgeCase::Koan
     end
   end
 
-  in_ruby_version("1.9") do
+  in_ruby_version("1.9", "2.0") do
     def as_name(name)
       name.to_sym
     end
@@ -39,19 +39,17 @@ class AboutIteration < EdgeCase::Koan
   def test_each_can_use_curly_brace_blocks_too
     array = [1, 2, 3]
     sum = 0
-    array.each { |item|
-      sum += item
-    }
+    array.each { |item| sum += item }
     assert_equal __, sum
   end
 
   def test_break_works_with_each_style_iterations
     array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     sum = 0
-    array.each { |item|
+    array.each do |item|
       break if item > 3
       sum += item
-    }
+    end
     assert_equal __, sum
   end
 
@@ -86,7 +84,7 @@ class AboutIteration < EdgeCase::Koan
     result = [2, 3, 4].inject(0) { |sum, item| sum + item }
     assert_equal __, result
 
-    result2 = [2, 3, 4].inject(1) { |sum, item| sum * item }
+    result2 = [2, 3, 4].inject(1) { |product, item| product * item }
     assert_equal __, result2
 
     # Extra Credit:
